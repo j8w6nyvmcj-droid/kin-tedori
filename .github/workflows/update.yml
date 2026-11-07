@@ -1,0 +1,28 @@
+name: 相場の更新
+on:
+  schedule:
+    - cron: "33 0 * * *"    # 毎日 9:33 JST（平日は確定、休日は目安だけ）
+    - cron: "5 8 * * *"     # 毎日 17:05 JST（明日の目安の更新）
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: 相場を計算
+        env:
+          COEF_JSON: ${{ secrets.COEF_JSON }}
+        run: |
+          H=$(TZ=Asia/Tokyo date +%H)
+          if [ "$H" -lt 12 ]; then python scripts/update.py fix; else python scripts/update.py est; fi
+      - name: 保存
+        run: |
+          git config user.name "kin-tedori-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/
+          git commit -m "相場更新 $(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M')" || echo "変更なし"
+          git push

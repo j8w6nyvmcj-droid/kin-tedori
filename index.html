@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>貴金属買取の手取り計算サイト｜今日の金・プラチナ相場と、買取店に持っていく際の売却価格の目安</title>
+<meta name="description" content="今日の金・プラチナのインゴット相場（国際価格とドル円から独自算出）と、買取店に持っていったときに実際に手元に残る売却価格の目安を、純度別（K24・K18・K14・Pt900など）に毎日更新しています。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="hd"><div class="in"><a class="menu" href="#columns" aria-label="読みもの"></a>
+  <h1><a href="./">貴金属買取の手取り計算サイト</a> <small>今日の金・プラチナ相場と、買取店に持っていく前に知っておきたい売却価格の目安</small></h1></div></div>
+
+<div class="wrap">
+
+<div class="band">今日と明日の金・プラチナ相場</div>
+<div class="box">
+  <table class="price">
+    <tr class="hd2"><td>1gあたり・税込</td><td style="text-align:right">今日</td><td style="text-align:right">前日比</td><td style="text-align:right">明日の目安</td></tr>
+    <tr><th>金 インゴット（K24）</th><td class="v num" id="baseK24">—</td><td class="c num" id="chgK24"></td><td class="e num" id="estK24"></td></tr>
+    <tr><th>プラチナ インゴット（Pt1000）</th><td class="v num" id="basePt">—</td><td class="c num" id="chgPt"></td><td class="e num" id="estPt"></td></tr>
+  </table>
+  <div class="stamp" id="asof"></div>
+  <div class="note">この表は、国際価格とドル円から算出したインゴット（地金）の相場の水準です。各社の実際の買取参考価格は、それぞれのホームページでご確認ください。「明日の目安」は今の国際価格とドル円から計算した予想で、結果を保証するものではありません。買取店に持っていったときにいくらになるかは、下の「売却価格の目安」をご覧ください。</div>
+  <div class="notice" id="flag">相場が大きく動いています。お店は先回りしてリスクを織り込んだ価格にすることがあり、提示が目安より低めでも、この日はその分と考えられます。</div>
+</div>
+
+<div class="band">買取店に持っていく際の 売却価格の目安（1gあたり）</div>
+<div class="box">
+  <p class="lead">買取店で売るときは、お店の利益や手数料が引かれるのが一般的です。ここに出しているのは「このくらいの水準なら売却を考えてよい」と思う1gあたりの参考幅です。どのお店もこの価格になるという意味ではなく、これを下回るようならもっと高く買い取るお店があるかもしれないという運営主の主観で載せております。インゴット以外は、ジュエリー・小物の場合の数字です。</p>
+  <table class="price" id="ptable">
+    <tr class="hd2"><td>純度</td><td style="text-align:right">相場（1g）</td><td style="text-align:right;width:46%">売却価格の目安（1g）</td></tr>
+  </table>
+  <div class="note">見方：お店に言われた金額が幅の上を超えていれば、私なら売ります。幅の中なら、売却を考えてよい金額です。幅より下なら、もっと高く買い取るお店があると思います。歯科金・くずは、下のシミュレーションで品物の種類を選ぶと出ます。</div>
+</div>
+
+<div class="band">自分の品物でシミュレーションする</div>
+<div class="box">
+  <div class="form">
+    <div class="fr"><label for="purity">純度（刻印）</label><div>
+      <select id="purity">
+        <option value="K24">K24（純金）</option><option value="K22">K22</option><option value="K18" selected>K18</option>
+        <option value="K14">K14</option><option value="K10">K10</option>
+        <option value="Pt1000">Pt1000</option><option value="Pt900">Pt900</option><option value="Pt850">Pt850</option>
+      </select></div></div>
+    <div class="fr"><label for="form">品物の種類</label><div>
+      <select id="form"><option value="jewelry" selected>ジュエリー・小物</option><option value="ingot">インゴット・地金</option><option value="scrap">歯科金・くず</option></select></div></div>
+    <div class="fr"><label for="weight">重さ（g）</label><div><input id="weight" type="number" inputmode="decimal" min="0" step="0.1" value="10"></div></div>
+    <div class="fr"><label for="stone">石の合計（ct・わかれば）</label><div><input id="stone" type="number" inputmode="decimal" min="0" step="0.1" placeholder="例 0.5"></div></div>
+    <div class="fr"><label for="offer">お店に言われた買取金額（円・あれば）</label><div><input id="offer" type="number" inputmode="numeric" min="0" step="100" placeholder="例 150000"></div></div>
+  </div>
+  <button id="run" type="button" class="btn">この条件で計算する</button>
+  <div class="res"><div class="t">この品物の売却価格の目安</div>
+    <div class="b"><div class="big num" id="range">—</div><div class="sub num" id="perg"></div></div></div>
+  <div id="verdict" class="verdict v-fair">お店に言われた買取金額を入れると、その金額が高いか安いかの目安が出ます。</div>
+  <div class="note" id="stoneNote" hidden>石の重さは、0.5ctごとに0.1gを引いて計算しています。小さい石（メレ）はほとんど値段が付かず、大きい石は別に評価されます。</div>
+</div>
+
+<div class="band">市況ひとこと</div>
+<div class="box memo">
+  <div class="lbl" id="memoDate"></div>
+  <div class="lbl">今日の動き</div><p id="memoToday"></p>
+  <div class="lbl">短期（数日〜1週間）</div><p id="memoShort"></p>
+  <div class="lbl">中期（1〜3か月）</div><p id="memoMid"></p>
+  <div class="note">ここに書いてあることは予想であり、売買をすすめるものではありません。</div>
+</div>
+
+<div class="band" id="columns">読みもの</div>
+<div class="box">
+  <ul class="list">
+    <li><a href="columns/shikumi.html">買取店の貴金属買取の仕組み<span class="d">運営主のコラム</span></a></li>
+    <li><a href="columns/sanko-kakaku.html">買取店の参考価格が高く見える仕組み<span class="d">運営主のコラム</span></a></li>
+  </ul>
+</div>
+
+<div class="foot">
+  <p>売却価格の目安は、長年リユース業に携わったサイト主の主観によるものです。買取価格はお店・時期・品物の状態で変わり、この目安を上回るお店も多数あります。査定・鑑定ではなく、金額を保証するものではありません。「予想」「目安」と書いたものは予想であり、断定ではありません。</p>
+  <p>相場の出し方：国際価格（ドル/オンス）とドル円から1gあたりの円の値段を計算し、消費税と、地金大手の公表買取価格との差の補正を加えたものです。営業日の9:30に確定します。土日祝は前営業日の値を表示します。</p>
+  <p>国際価格：gold-api.com、為替：ExchangeRate-API（<a href="https://www.exchangerate-api.com">exchangerate-api.com</a>）</p>
+</div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "_note": "見本の係数。本番の係数は GitHub の Secrets（COEF_JSON）に同じ形で置き、ここには置かない。",
+  "adj_init": { "au": 1.00, "pt": 0.95 },
+  "purity": { "K24": 1.00, "K22": 0.906, "K18": 0.763, "K14": 0.566, "K10": 0.393, "Pt1000": 1.00, "Pt900": 0.914, "Pt850": 0.863 },
+  "internal": { "ingot": 0.985, "jewelry": 0.96, "scrap": 0.96 },
+  "band": { "K24": [0.90, 0.97], "other": [0.88, 0.95] },
+  "cheap_gap": 0.05,
+  "stone_per_half_ct": 0.1,
+  "flag_yen": 300,
+  "rows": [["K24","インゴット","ingot"],["K24","ジュエリー","jewelry"],["K22","","jewelry"],["K18","","jewelry"],["K14","","jewelry"],["K10","","jewelry"],
+           ["Pt1000","インゴット","ingot"],["Pt1000","ジュエリー","jewelry"],["Pt900","","jewelry"],["Pt850","","jewelry"]],
+  "holidays": ["01-01","01-02","01-03","12-31"]
+}

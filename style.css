@@ -67,3 +67,8 @@ ul.list .d{color:var(--muted);font-size:.8rem;font-weight:400;margin-left:6px}
 .article p{margin:0 0 1em}
 .article .quote{background:var(--bg);border-left:4px solid var(--band);padding:8px 12px;margin:0 0 1em}
 @media (max-width:420px){.fr{grid-template-columns:1fr}}
+
+.tvwrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tv{min-width:0}
+.tv-t{font-size:.85rem;color:var(--muted);margin-bottom:4px}
+@media (max-width:560px){.tvwrap{grid-template-columns:1fr}}

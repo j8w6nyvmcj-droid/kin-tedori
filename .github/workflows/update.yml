@@ -2,6 +2,7 @@ name: 相場の更新
 on:
   schedule:
     - cron: "33 0 * * *"    # 毎日 9:33 JST（平日は確定、休日は目安だけ）
+    - cron: "5 5 * * *"     # 毎日 14:05 JST（明日の目安の更新）
     - cron: "5 8 * * *"     # 毎日 17:05 JST（明日の目安の更新）
   workflow_dispatch:
 permissions:

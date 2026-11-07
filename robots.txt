@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://j8w6nyvmcj-droid.github.io/kin-tedori/sitemap.xml

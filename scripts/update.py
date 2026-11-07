@@ -107,6 +107,51 @@ for p, kind, f in coef["rows"]:
     lo, hi = coef["band"]["K24"] if p == "K24" else coef["band"]["other"]
     rows.append({"purity": p, "kind": kind, "form": f, "rate": round(pub), "lo": round(inter*lo), "hi": round(inter*hi)})
 
+# 金貨（K24 の計算レート × 重さ に対する幅）
+coins=[]
+k24_rate = base_au * coef["purity"]["K24"] * coef["internal"]["jewelry"]
+for cn in coef.get("coins", []):
+    lo, hi = coef["coin_band"]
+    coins.append({"name": cn["name"], "g": cn["g"], "lo": round(k24_rate*cn["g"]*lo), "hi": round(k24_rate*cn["g"]*hi),
+                  "nobox_lo": round(k24_rate*cn["g"]*lo*coef["coin_nobox"]), "nobox_hi": round(k24_rate*cn["g"]*hi*coef["coin_nobox"])})
+
+# 買取店のHP表示価格（照合・証拠用。店名はページに出さない）
+stores = {}
+def grab(url, pats):
+    try:
+        h = get(url); out = {}
+        for k, pat in pats.items():
+            m = re.search(pat, h)
+            if m: out[k] = int(m.group(1).replace(",", ""))
+        return out
+    except Exception as e:
+        return {"error": str(e)[:80]}
+stores["A"] = grab("https://goldplaza.jp/gold/rate", {"K24": r'class="_k24[^"]*">([0-9,]+)', "K18": r'class="_k18[^"]*">([0-9,]+)', "K14": r'class="_k14[^"]*">([0-9,]+)', "Pt900": r'class="_pt900[^"]*">([0-9,]+)'})
+oh = {}
+try:
+    h = get("https://www.otakaraya.jp/gold/souba/")
+    for m in re.finditer(r'rate-price">([0-9,]+)', h):
+        seg = h[max(0, m.start()-2500):m.start()]
+        labs = re.findall(r'purity-type">\s*([^<\n]{1,40}?)\s*<', seg)
+        lab = labs[-1] if labs else ""
+        for key, token in (("K24","24金"),("K18","18金"),("K14","14金"),("Pt900","Pt900")):
+            if lab.startswith(token) and key not in oh: oh[key] = int(m.group(1).replace(",", ""))
+except Exception as e:
+    oh = {"error": str(e)[:80]}
+stores["B"] = oh
+st_path = DATA / "stores.csv"
+if MODE == "fix" and is_bizday:
+    row = {"date": now.strftime("%Y-%m-%d")}
+    for sid, d in stores.items():
+        for k in ("K24","K18","K14","Pt900"): row[f"{sid}_{k}"] = d.get(k, "")
+    wh = not st_path.exists()
+    with st_path.open("a", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(row.keys()))
+        if wh: w.writeheader()
+        w.writerow(row)
+hp_k24 = [d["K24"] for d in stores.values() if isinstance(d.get("K24"), int)]
+hp_range = {"n": len(hp_k24), "max": max(hp_k24), "min": min(hp_k24), "median": sorted(hp_k24)[len(hp_k24)//2]} if hp_k24 else None
+
 # シミュレーション用（係数そのものは出さず、純度×形ごとの「1gあたりの幅」だけ出す）
 sim = {}
 for p in coef["purity"]:
@@ -142,6 +187,7 @@ out = {
     "est_au": round(au_now), "est_pt": round(pt_now), "est_at": now.strftime("%H:%M"),
     "flag": flag, "flag_yen": coef["flag_yen"],
     "rows": rows, "sim": sim, "stone_per_half_ct": coef["stone_per_half_ct"],
+    "coins": coins, "hp_range": hp_range,
     "memo": {"today": move_text(), "short": memo.get("short", ""), "mid": memo.get("mid", ""), "memo_date": memo.get("date", "")},
     "tanaka": tanaka,
 }

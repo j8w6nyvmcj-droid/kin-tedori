@@ -16,6 +16,17 @@
       tr.innerHTML = `<th>${r.purity}${r.kind ? "（" + r.kind + "）" : ""}</th><td class="num" style="text-align:right;color:var(--muted)">${yen(r.rate)}</td><td class="c num">${yen(r.lo)} 〜 ${yen(r.hi)}</td>`;
       t.appendChild(tr);
     }
+    if (d.hp_range && d.hp_range.n >= 1) {
+      const r = d.hp_range; const el = $("hprange");
+      el.textContent = `買取店のホームページに出ている参考価格（記録中の${r.n}社・K24）：${r.n > 1 ? yen(r.min) + "〜" : ""}${yen(r.max)}。表示より実際の提示が低いことが多く、理由は下の「読みもの」にあります。`;
+      el.hidden = false;
+    }
+    const ct = $("ctable");
+    for (const c of d.coins || []) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<th>${c.name}（${c.g}g）</th><td class="c num">${yen(c.lo)} 〜 ${yen(c.hi)}</td><td class="e num">${yen(c.nobox_lo)} 〜 ${yen(c.nobox_hi)}</td>`;
+      ct.appendChild(tr);
+    }
     $("memoToday").textContent = d.memo.today || "";
     $("memoShort").textContent = d.memo.short || "準備中";
     $("memoMid").textContent = d.memo.mid || "準備中";

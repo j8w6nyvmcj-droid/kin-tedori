@@ -108,5 +108,9 @@
   0.85,
   0.95
  ],
- "coin_nobox": 0.9
+ "coin_nobox": {
+  "lo": 0.95,
+  "hi": 0.9
+ },
+ "coin_round": 1000
 }

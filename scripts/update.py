@@ -112,8 +112,10 @@ coins=[]
 k24_rate = base_au * coef["purity"]["K24"] * coef["internal"]["jewelry"]
 for cn in coef.get("coins", []):
     lo, hi = coef["coin_band"]
-    coins.append({"name": cn["name"], "g": cn["g"], "lo": round(k24_rate*cn["g"]*lo), "hi": round(k24_rate*cn["g"]*hi),
-                  "nobox_lo": round(k24_rate*cn["g"]*lo*coef["coin_nobox"]), "nobox_hi": round(k24_rate*cn["g"]*hi*coef["coin_nobox"])})
+    R = coef.get("coin_round", 1000); rd = lambda v: int(round(v / R) * R)
+    nb = coef["coin_nobox"]; nb_lo, nb_hi = (nb["lo"], nb["hi"]) if isinstance(nb, dict) else (nb, nb)
+    coins.append({"name": cn["name"], "g": cn["g"], "lo": rd(k24_rate*cn["g"]*lo), "hi": rd(k24_rate*cn["g"]*hi),
+                  "nobox_lo": rd(k24_rate*cn["g"]*lo*nb_lo), "nobox_hi": rd(k24_rate*cn["g"]*hi*nb_hi)})
 
 # 買取店のHP表示価格（照合・証拠用。店名はページに出さない）
 stores = {}

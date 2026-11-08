@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-07 21:58",
+ "updated": "2026-11-08 10:45",
  "asof": "2026年11月7日(土)",
  "is_bizday": false,
  "xau": 4072.1,
  "xpt": 1544.0,
- "fx": 158.369,
+ "fx": 158.318,
  "adj_au": 1.0,
  "adj_pt": 0.95,
  "base_au": 22807,
  "base_pt": 8215,
  "prev_au": null,
  "prev_pt": null,
- "est_au": 22807,
- "est_pt": 8215,
- "est_at": "21:58",
+ "est_au": 22800,
+ "est_pt": 8213,
+ "est_at": "10:45",
  "flag": false,
  "flag_yen": 300,
  "rows": [
@@ -241,26 +241,26 @@
   {
    "name": "天皇陛下御在位60年記念 10万円金貨",
    "g": 20,
-   "lo": 376087,
-   "hi": 420333,
-   "nobox_lo": 338479,
-   "nobox_hi": 378300
+   "lo": 376000,
+   "hi": 420000,
+   "nobox_lo": 357000,
+   "nobox_hi": 378000
   },
   {
    "name": "天皇陛下御即位記念 10万円金貨",
    "g": 30,
-   "lo": 564131,
-   "hi": 630500,
-   "nobox_lo": 507718,
-   "nobox_hi": 567450
+   "lo": 564000,
+   "hi": 630000,
+   "nobox_lo": 536000,
+   "nobox_hi": 567000
   },
   {
    "name": "皇太子殿下御成婚記念 5万円金貨",
    "g": 18,
-   "lo": 338479,
-   "hi": 378300,
-   "nobox_lo": 304631,
-   "nobox_hi": 340470
+   "lo": 338000,
+   "hi": 378000,
+   "nobox_lo": 322000,
+   "nobox_hi": 340000
   }
  ],
  "hp_range": {
@@ -276,7 +276,6 @@
   "memo_date": "2026-11-07"
  },
  "tanaka": {
-  "au_buy": 22325,
-  "pt_buy": 8176
+  "error": "<urlopen error [Errno 104] Connection reset by peer>"
  }
 }

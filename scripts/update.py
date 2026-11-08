@@ -66,9 +66,10 @@ au_now = yen_per_g(xau, adj_au)
 pt_now = yen_per_g(xpt, adj_pt)
 is_bizday = now.weekday() < 5 and now.strftime("%m-%d") not in coef.get("holidays", [])
 
+close_au, close_pt = prev.get("close_au"), prev.get("close_pt")   # 前営業日の17:00の値（前日比の基準）
 if MODE == "fix" and is_bizday:
     base_au, base_pt = au_now, pt_now
-    prev_au, prev_pt = prev.get("base_au"), prev.get("base_pt")
+    prev_au, prev_pt = (close_au or prev.get("base_au")), (close_pt or prev.get("base_pt"))
     asof = jdate(now, " 9:30 確定")
     # 照合を記録（税抜理論値ではなく税込の値に対する比）
     if tanaka.get("au_buy"):
@@ -84,9 +85,11 @@ if MODE == "fix" and is_bizday:
             if write_header: w.writeheader()
             w.writerow(newrow)
 else:
-    # 休日や17:00の更新：確定値は前回のまま、明日の目安だけ更新
+    # 休日や14:00・17:00の更新：確定値は前回のまま、明日の目安だけ更新
     base_au, base_pt = prev.get("base_au", au_now), prev.get("base_pt", pt_now)
     prev_au, prev_pt = prev.get("prev_au"), prev.get("prev_pt")
+    if is_bizday and now.hour >= 17:
+        close_au, close_pt = round(au_now), round(pt_now)   # 17:00の値を「前日」の基準として保存
     asof = prev.get("asof", jdate(now))
 
 # ---- 急変の旗：前回確定から持続して大きく動いたか（300円/g以上）----
@@ -187,6 +190,7 @@ out = {
     "base_au": round(base_au), "base_pt": round(base_pt),
     "prev_au": round(prev_au) if prev_au else None, "prev_pt": round(prev_pt) if prev_pt else None,
     "est_au": round(au_now), "est_pt": round(pt_now), "est_at": now.strftime("%H:%M"),
+    "close_au": close_au, "close_pt": close_pt,
     "flag": flag, "flag_yen": coef["flag_yen"],
     "rows": rows, "sim": sim, "stone_per_half_ct": coef["stone_per_half_ct"],
     "coins": coins, "hp_range": hp_range,

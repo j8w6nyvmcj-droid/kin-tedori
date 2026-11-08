@@ -13,7 +13,7 @@
     const t = $("ptable");
     for (const r of d.rows) {
       const tr = document.createElement("tr");
-      tr.innerHTML = `<th>${r.purity}${r.kind ? "（" + r.kind + "）" : ""}</th><td class="num" style="text-align:right;color:var(--muted)">${yen(r.rate)}</td><td class="c num">${yen(r.lo)} 〜 ${yen(r.hi)}</td>`;
+      tr.innerHTML = `<th>${r.purity}${r.kind ? "<small>" + r.kind + "</small>" : ""}</th><td class="num" style="text-align:right;color:var(--muted)">${yen(r.rate)}</td><td class="c num">${yen(r.lo)} 〜 ${yen(r.hi)}</td>`;
       t.appendChild(tr);
     }
     if (d.hp_range && d.hp_range.n >= 1) {
@@ -23,9 +23,11 @@
     }
     const ct = $("ctable");
     for (const c of d.coins || []) {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<th>${c.name}（${c.g}g）</th><td class="c num">${yen(c.lo)} 〜 ${yen(c.hi)}</td><td class="e num">${yen(c.nobox_lo)} 〜 ${yen(c.nobox_hi)}</td>`;
-      ct.appendChild(tr);
+      const div = document.createElement("div"); div.className = "coin";
+      div.innerHTML = `<div class="coin-n">${c.name}<span class="coin-g">（純金 ${c.g}g）</span></div>
+        <div class="coin-r"><span class="k">箱あり</span><span class="v num">${yen(c.lo)} 〜 ${yen(c.hi)}</span></div>
+        <div class="coin-r"><span class="k">箱なし</span><span class="v num e">${yen(c.nobox_lo)} 〜 ${yen(c.nobox_hi)}</span></div>`;
+      ct.appendChild(div);
     }
     $("memoToday").textContent = d.memo.today || "";
     $("memoShort").textContent = d.memo.short || "準備中";

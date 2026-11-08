@@ -18,9 +18,9 @@
 <div class="band">今日と明日の金・プラチナ 参考相場</div>
 <div class="box">
   <table class="price">
-    <tr class="hd2"><td>1gあたり・税込</td><td style="text-align:right">今日</td><td style="text-align:right">前日比</td><td style="text-align:right">明日の目安</td></tr>
-    <tr><th>金 インゴット（K24）</th><td class="v num" id="baseK24">—</td><td class="c num" id="chgK24"></td><td class="e num" id="estK24"></td></tr>
-    <tr><th>プラチナ インゴット（Pt1000）</th><td class="v num" id="basePt">—</td><td class="c num" id="chgPt"></td><td class="e num" id="estPt"></td></tr>
+    <tr class="hd2"><td>1g・税込</td><td style="text-align:right">今日</td><td style="text-align:right">前日比</td><td style="text-align:right">明日の目安</td></tr>
+    <tr><th>金<br><small>インゴット K24</small></th><td class="v num" id="baseK24">—</td><td class="c num" id="chgK24"></td><td class="e num" id="estK24"></td></tr>
+    <tr><th>プラチナ<br><small>インゴット Pt1000</small></th><td class="v num" id="basePt">—</td><td class="c num" id="chgPt"></td><td class="e num" id="estPt"></td></tr>
   </table>
   <div class="stamp" id="asof"></div>
   <div class="stamp">更新時刻：平日 9:30（今日の相場を確定）・14:00・17:00（明日の目安を更新）。土日祝は明日の目安のみ更新。</div>
@@ -62,10 +62,8 @@
 
 <div class="band">記念金貨の売却価格の目安（1枚あたり）</div>
 <div class="box">
-  <p class="lead">純金の記念金貨3種の目安です。ブリスターパック（透明の包装）に入っている状態の金額で、化粧箱・ケース・外箱がない場合は右の金額になります。パックから外れている物は別の評価になることが多いです。</p>
-  <table class="price" id="ctable">
-    <tr class="hd2"><td>金貨</td><td style="text-align:right">箱あり</td><td style="text-align:right">箱なし</td></tr>
-  </table>
+  <p class="lead">純金の記念金貨3種の目安です。ブリスターパック（透明の包装）に入っている状態の金額で、化粧箱・ケース・外箱がない場合は「箱なし」の金額になります。パックから外れている物は別の評価になることが多いです。</p>
+  <div id="ctable" class="coins"></div>
 </div>
 
 <div class="band">市況ひとこと</div>

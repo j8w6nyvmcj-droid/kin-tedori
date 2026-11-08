@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08 10:50",
+ "updated": "2026-11-08 14:46",
  "asof": "2026年11月7日(土)",
  "is_bizday": false,
  "xau": 4072.1,
@@ -13,7 +13,7 @@
  "prev_pt": null,
  "est_au": 22800,
  "est_pt": 8213,
- "est_at": "10:50",
+ "est_at": "14:46",
  "close_au": null,
  "close_pt": null,
  "flag": false,
@@ -278,6 +278,7 @@
   "memo_date": "2026-11-07"
  },
  "tanaka": {
-  "error": "<urlopen error [Errno 104] Connection reset by peer>"
+  "au_buy": 22325,
+  "pt_buy": 8176
  }
 }

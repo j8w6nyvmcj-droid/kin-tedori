@@ -8,7 +8,7 @@
     D = d;
     $("baseK24").textContent = yen(d.base_au); $("chgK24").innerHTML = chg(d.base_au, d.prev_au); $("estK24").textContent = yen(d.est_au);
     $("basePt").textContent = yen(d.base_pt);  $("chgPt").innerHTML = chg(d.base_pt, d.prev_pt);  $("estPt").textContent = yen(d.est_pt);
-    $("asof").textContent = `${d.asof}｜国際価格 ${d.xau.toLocaleString("en-US",{minimumFractionDigits:2})}ドル/オンス、ドル円 ${d.fx.toFixed(2)}円（明日の目安は ${d.est_at} 時点）`;
+    $("asof").innerHTML = `${d.asof}<br>国際価格 ${d.xau.toLocaleString("en-US",{minimumFractionDigits:2})}ドル/オンス　ドル円 ${d.fx.toFixed(2)}円`;
     $("flag").classList.toggle("on", !!d.flag);
     const t = $("ptable");
     for (const r of d.rows) {
@@ -18,7 +18,7 @@
     }
     if (d.hp_range && d.hp_range.n >= 1) {
       const r = d.hp_range; const el = $("hprange");
-      el.textContent = `買取店のホームページに出ている参考価格（記録中の${r.n}社・K24）：${r.n > 1 ? yen(r.min) + "〜" : ""}${yen(r.max)}。表示より実際の提示が低いことが多く、理由は下の「読みもの」にあります。`;
+      el.innerHTML = `<b>買取店のホームページの参考価格（K24・${r.n}社）</b>：${r.n > 1 ? yen(r.min) + "〜" : ""}${yen(r.max)}<br>表示より実際の提示が低いことが多いです。理由は下の「読みもの」へ。`;
       el.hidden = false;
     }
     const ct = $("ctable");
